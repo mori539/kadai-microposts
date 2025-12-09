@@ -1,16 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
+
 use App\Http\Controllers\UsersController;
+use App\Http\Controllers\MicropostsController;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home');
+Route::get('/', [MicropostsController::class, 'index'])->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+Route::get('/dashboard', [MicropostsController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     // Route::redirect('settings', 'settings/profile');
@@ -20,6 +17,7 @@ Route::middleware(['auth'])->group(function () {
     // Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 
     Route::resource('users', UsersController::class, ['only' => ['index', 'show']]);
+    Route::resource('microposts', MicropostsController::class, ['only' => ['store', 'destroy']]);
 });
 
 require __DIR__.'/auth.php';
