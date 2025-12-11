@@ -14,4 +14,9 @@
         Followers
         <div class="badge badge-soft badge-primary badge-sm ml-1">{{ $user->followers_count }}</div>
     </a>
+    {{-- お気に入り一覧タブ --}}
+    <a href="{{ route('user.favoriteList', $user->id) }}" class="tab grow {{ Request::routeIs('user.favoriteList') ? 'tab-active' : '' }}">
+        Favorites
+        <div class="badge badge-soft badge-primary badge-sm ml-1">{{ $user->favorites_count }}</div>
+    </a>
 </div>
